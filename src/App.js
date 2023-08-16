@@ -59,8 +59,6 @@ const tempWatchedData = [
   },
 ];
 
-const KEY = "e8213e2c";
-
 function App() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState(tempMovieData);
@@ -70,7 +68,9 @@ function App() {
   const [error, setError] = useState('');
 
   function handleMovieSelect(id) {
+    // Clicking on the same movie again will set the selectedId to null
     setSelectedId(selectedId => id === selectedId ? null : id);
+    // setSelectedId(id);
   }
 
   function handleCloseMovie() {
@@ -84,7 +84,7 @@ function App() {
         setIsLoading(true);
         setError("");
 
-        const res = await fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=${query}`)
+        const res = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${query}`)
 
         if(!res.ok) throw new Error("Something went wrong with fetching movies")
 
@@ -114,7 +114,7 @@ function App() {
 
   }, [query]);
 
-  console.log(movies)
+  // console.log(movies)
 
   return (
     <div className="App">
