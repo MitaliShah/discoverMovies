@@ -62,7 +62,7 @@ const tempWatchedData = [
 function App() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [watched, setWatched] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -76,6 +76,7 @@ function App() {
   function handleCloseMovie() {
     setSelectedId(null);
   }
+
   
   useEffect(() => {
     
