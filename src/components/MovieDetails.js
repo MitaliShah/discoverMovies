@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
 
-export default function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
+export default function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     const [movie, setMovie] = useState({});
     const {
         Title: title, 
         Year: year, 
         Poster: poster, 
         Runtime: runtime, 
-        imdbRating, 
+        imdbRating,
         Plot: plot, 
         Released: released,
         Actors: actors,
@@ -15,20 +15,28 @@ export default function MovieDetails({ selectedId, onCloseMovie, onAddWatched })
         Genre: genre
       } = movie;
 
-      console.log(title,year);
-
+    const isWatched = watched.map((movie) => movie.imdbId).includes(selectedId);
     function handleAdd() {
         const newWatchedMovie = {
             imdbId: selectedId,
             title,
             year,
-            poster,
+            poster,            
             imdbRating: Number(imdbRating),
             runtime: Number(runtime.split(' ').at(0))
         }
         onAddWatched(newWatchedMovie);
+        onCloseMovie();
     }
     
+    useEffect(() => {
+        if(!title) return;
+        document.title = `Movie | ${title}`
+
+        return function() {
+            document.title = "Movie App";
+        }
+    }, [title]);
 
     useEffect(() => {
         async function getMovieDetails() {
@@ -56,7 +64,9 @@ export default function MovieDetails({ selectedId, onCloseMovie, onAddWatched })
                     </p>
                 </div>
             </header>
-            <button className="btn-add" onClick={handleAdd}>+ add to list</button>
+            {!isWatched ? 
+                <button className="btn-add" onClick={handleAdd}>+ add to list</button> : 
+                <p>You already added to the watch list</p>}
             <section>
                 <p><em>{plot}</em></p>
                 <p>Starring {actors}</p>

@@ -81,7 +81,9 @@ function App() {
     setWatched(watched => [...watched, movie])
   }
 
-  console.log(watched)
+  function handleDeleteWatched(id) {    
+    setWatched(watched => watched.filter(movie => movie.imdbId !== id))
+  }
   
   useEffect(() => {
     
@@ -138,10 +140,19 @@ function App() {
           {error && <ErrorMessage message={error} />}
         </Box>
         <Box>
-          {selectedId ? <MovieDetails selectedId={selectedId} onCloseMovie={handleCloseMovie} onAddWatched={handleAddWatched} /> : 
+          {selectedId ? 
+            <MovieDetails 
+              selectedId={selectedId} 
+              onCloseMovie={handleCloseMovie} 
+              onAddWatched={handleAddWatched} 
+              watched={watched}
+            /> : 
           <>
             <WatchedSummary watched={watched} />
-            <WatchedMoviesList watched={watched} />
+            <WatchedMoviesList 
+              watched={watched} 
+              onDeleteWatched={handleDeleteWatched} 
+            />
           </>
           }      
           
