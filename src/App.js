@@ -84,6 +84,14 @@ function App() {
   function handleDeleteWatched(id) {    
     setWatched(watched => watched.filter(movie => movie.imdbId !== id))
   }
+
+  useEffect(() => {
+    document.addEventListener('keydown', function(e) {
+      if(e.code === 'Escape') {
+        handleCloseMovie();
+      }
+    })
+  }, []);
   
   useEffect(() => {
     const controller = new AbortController();
