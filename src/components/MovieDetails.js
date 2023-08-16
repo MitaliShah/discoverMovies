@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export default function MovieDetails({ selectedId, onCloseMovie }) {
+export default function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
     const [movie, setMovie] = useState({});
     const {
         Title: title, 
@@ -17,6 +17,19 @@ export default function MovieDetails({ selectedId, onCloseMovie }) {
 
       console.log(title,year);
 
+    function handleAdd() {
+        const newWatchedMovie = {
+            imdbId: selectedId,
+            title,
+            year,
+            poster,
+            imdbRating: Number(imdbRating),
+            runtime: Number(runtime.split(' ').at(0))
+        }
+        onAddWatched(newWatchedMovie);
+    }
+    
+
     useEffect(() => {
         async function getMovieDetails() {
             // Fetching movie details with selectedId
@@ -27,6 +40,7 @@ export default function MovieDetails({ selectedId, onCloseMovie }) {
         getMovieDetails()
     },[selectedId])
 
+    
     return (
         <div className="details">
             <header>
@@ -42,6 +56,7 @@ export default function MovieDetails({ selectedId, onCloseMovie }) {
                     </p>
                 </div>
             </header>
+            <button className="btn-add" onClick={handleAdd}>+ add to list</button>
             <section>
                 <p><em>{plot}</em></p>
                 <p>Starring {actors}</p>

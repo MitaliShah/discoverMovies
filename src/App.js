@@ -77,6 +77,11 @@ function App() {
     setSelectedId(null);
   }
 
+  function handleAddWatched(movie) {
+    setWatched(watched => [...watched, movie])
+  }
+
+  console.log(watched)
   
   useEffect(() => {
     
@@ -133,7 +138,7 @@ function App() {
           {error && <ErrorMessage message={error} />}
         </Box>
         <Box>
-          {selectedId ? <MovieDetails selectedId={selectedId} onCloseMovie={handleCloseMovie} /> : 
+          {selectedId ? <MovieDetails selectedId={selectedId} onCloseMovie={handleCloseMovie} onAddWatched={handleAddWatched} /> : 
           <>
             <WatchedSummary watched={watched} />
             <WatchedMoviesList watched={watched} />
