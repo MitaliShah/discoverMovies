@@ -61,7 +61,7 @@ const tempWatchedData = [
 
 function App() {
   const [query, setQuery] = useState("");
-  const [movies, setMovies] = useState(tempMovieData);
+  const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -86,14 +86,6 @@ function App() {
   }
 
   useEffect(() => {
-    document.addEventListener('keydown', function(e) {
-      if(e.code === 'Escape') {
-        handleCloseMovie();
-      }
-    })
-  }, []);
-  
-  useEffect(() => {
     const controller = new AbortController();
 
     async function fetchMovies() {
@@ -116,6 +108,7 @@ function App() {
         setError("");       
       } catch(error) {
         if(error.name !== "AbortError") {
+          console.log(error.message)
           setError(error.message);
         }        
       } finally { 
@@ -128,7 +121,8 @@ function App() {
       setError("");
       return
     }
-
+    
+    handleCloseMovie();
     fetchMovies();
 
     return function() {
@@ -136,8 +130,6 @@ function App() {
     }
 
   }, [query]);
-
-  // console.log(movies)
 
   return (
     <div className="App">
@@ -148,8 +140,6 @@ function App() {
 
       <Main>
         <Box>
-          {/* display the searched movie list, if available */}
-          {/* {isLoading ? <Loader /> : <MovieList movies={movies} /> } */}
           {isLoading && <Loader />}
           {!isLoading && !error && <MovieList movies={movies} onSelectMovie={handleMovieSelect} />}
           {error && <ErrorMessage message={error} />}

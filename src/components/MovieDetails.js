@@ -28,6 +28,20 @@ export default function MovieDetails({ selectedId, onCloseMovie, onAddWatched, w
         onAddWatched(newWatchedMovie);
         onCloseMovie();
     }
+
+    useEffect(() => {
+        function callback(e) {
+            if(e.code === 'Escape') {
+                onCloseMovie();
+              }
+        }
+        document.addEventListener('keydown', callback);
+
+        return function () {
+            document.removeEventListener("keydown", callback);
+          };
+
+      }, [onCloseMovie]);
     
     useEffect(() => {
         if(!title) return;
@@ -53,7 +67,7 @@ export default function MovieDetails({ selectedId, onCloseMovie, onAddWatched, w
         <div className="details">
             <header>
                 <button className="btn-back" onClick={onCloseMovie}>&larr;</button>
-                <img src={poster} alt={`Poster of ${movie}`} />
+                <img src={poster} alt={`Poster of ${movie}`} className="movie-detail-poster"/>
                 <div className="details-overview">
                     <h2>{title}</h2>
                     <p>{released} &bull; {runtime}</p>
@@ -67,7 +81,7 @@ export default function MovieDetails({ selectedId, onCloseMovie, onAddWatched, w
             {!isWatched ? 
                 <button className="btn-add" onClick={handleAdd}>+ add to list</button> : 
                 <p>You already added to the watch list</p>}
-            <section>
+            <section className="movie-plot">
                 <p><em>{plot}</em></p>
                 <p>Starring {actors}</p>
                 <p>Directed by {director}</p>
