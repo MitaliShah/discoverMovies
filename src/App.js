@@ -12,16 +12,14 @@ import MovieDetails from "./components/MovieDetails";
 import Loader from './components/Loader';
 import ErrorMessage from "./components/ErrorMessage";
 import { useMovies } from './components/useMovies';
+import { useLocalStorage } from './components/useLocalStorage';
+
 
 function App() {
-  const [query, setQuery] = useState("");
-  const {movies, isLoading, error}= useMovies(query,handleCloseMovie);
-  const [watched, setWatched] = useState(() => {
-    const storedValue = localStorage.getItem("watched");
-    return JSON.parse(storedValue);
-  });
+  const [query, setQuery] = useState("");  
+  const [watched, setWatched] = useLocalStorage([], "watched");
   const [selectedId, setSelectedId] = useState(null);
-  
+  const {movies, isLoading, error}= useMovies(query);  
 
   function handleMovieSelect(id) {
     // Clicking on the same movie again will set the selectedId to null
@@ -40,10 +38,6 @@ function App() {
   function handleDeleteWatched(id) {    
     setWatched(watched => watched.filter(movie => movie.imdbId !== id))
   }
-
-  useEffect(() => {
-    localStorage.setItem('watched', JSON.stringify(watched));
-  }, [watched])
 
   return (
     <div className="App">
