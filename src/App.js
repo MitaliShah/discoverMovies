@@ -11,17 +11,17 @@ import WatchedSummary from './components/WatchedSummary';
 import MovieDetails from "./components/MovieDetails";
 import Loader from './components/Loader';
 import ErrorMessage from "./components/ErrorMessage";
+import { useMovies } from './components/useMovies';
 
 function App() {
   const [query, setQuery] = useState("");
-  const [movies, setMovies] = useState([]);
+  const {movies, isLoading, error}= useMovies(query,handleCloseMovie);
   const [watched, setWatched] = useState(() => {
     const storedValue = localStorage.getItem("watched");
     return JSON.parse(storedValue);
   });
   const [selectedId, setSelectedId] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  
 
   function handleMovieSelect(id) {
     // Clicking on the same movie again will set the selectedId to null
@@ -44,52 +44,6 @@ function App() {
   useEffect(() => {
     localStorage.setItem('watched', JSON.stringify(watched));
   }, [watched])
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    async function fetchMovies() {
-      try {
-        setIsLoading(true);
-        setError("");
-
-        const res = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${query}`, {signal: controller.signal});
-
-        if(!res.ok) throw new Error("Something went wrong with fetching movies")
-
-        const data = await res.json();   
-
-        if(data.Response === 'False') {
-          throw new Error("Movie not found");
-        }
-
-        setMovies(data.Search);
-        console.log(data.Search);
-        setError("");       
-      } catch(error) {
-        if(error.name !== "AbortError") {
-          console.log(error.message)
-          setError(error.message);
-        }        
-      } finally { 
-        setIsLoading(false);
-      }      
-    }
-
-    if(query.length < 3) {
-      setMovies([]);
-      setError("");
-      return
-    }
-    
-    handleCloseMovie();
-    fetchMovies();
-
-    return function() {
-      controller.abort();
-    }
-
-  }, [query]);
 
   return (
     <div className="App">
