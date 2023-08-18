@@ -44,7 +44,7 @@ export default function MovieDetails({ selectedId, onCloseMovie, onAddWatched, w
     useEffect(() => {
         async function getMovieDetails() {
             // Fetching movie details with selectedId
-            const res = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&i=${selectedId}`)
+            const res = await fetch(`https://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&i=${selectedId}`)
             const data = await res.json();
             setMovie(data)
         }
