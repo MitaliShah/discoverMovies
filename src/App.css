@@ -41,8 +41,12 @@ body {
   display: flex;
   flex-direction: column;
   max-width: 100%;
-  /* align-items: baseline; */
-  background-color: hsl(51, 80%, 73%);
+}
+
+.main {
+  background-image: url("../public/background.png");
+  background-position: center;
+  background-size: cover;
 }
 
 .img {
@@ -127,12 +131,38 @@ main {
 }
 
 .details > .btn-add {
-  max-width: 10rem;
-  padding: 0.5rem 2rem;
+  max-width: 100px;
+  padding: 0.2rem;
   background-color: rgb(59, 100, 212);
+  color: white;
   border: none;
   border-radius: 2px;
   margin: 5px 0;
+  font-size: 14px;
+}
+
+.watchlist-message {
+  color: tomato;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+.btn-back {
+  border: none;
+  background-color:rgb(59, 100, 212);;
+  border-radius: 50%;
+  margin-bottom: 5px;
+  color: white;
+  font-size: 15px;
+}
+
+.btn-delete {
+  border: none;
+  background-color:tomato;
+  border-radius: 50%;
+  font-size: 10px;
+  color: white;
 }
 
 .movie-detail-poster {

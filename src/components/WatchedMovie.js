@@ -1,6 +1,6 @@
 
 export default function WatchedMovie({ movie, onDeleteWatched  }) {
-    console.log(movie)
+
     return (
         <li className="movielist">
         <img src={movie.poster} alt={`${movie.title} poster`} />
@@ -10,10 +10,6 @@ export default function WatchedMovie({ movie, onDeleteWatched  }) {
             <p>
             <span>⭐️</span>
             <span>{movie.imdbRating}</span>
-            </p>
-            <p>
-            <span>🌟</span>
-            <span>{movie.userRating}</span>
             </p>
             <p>
             <span>⏳</span>

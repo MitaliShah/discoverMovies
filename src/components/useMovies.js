@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export function useMovies(query) {
     const [movies, setMovies] = useState([]);
@@ -24,12 +24,10 @@ export function useMovies(query) {
               throw new Error("Movie not found");
             }
     
-            setMovies(data.Search);
-            console.log(data.Search);
+            setMovies(data.Search);           
             setError("");       
           } catch(error) {
             if(error.name !== "AbortError") {
-              console.log(error.message)
               setError(error.message);
             }        
           } finally { 

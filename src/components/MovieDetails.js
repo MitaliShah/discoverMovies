@@ -68,8 +68,8 @@ export default function MovieDetails({ selectedId, onCloseMovie, onAddWatched, w
                 </div>
             </header>
             {!isWatched ? 
-                <button className="btn-add" onClick={handleAdd}>+ add to list</button> : 
-                <p>You already added to the watch list</p>}
+                <button className="btn-add" onClick={handleAdd}>+ Add to list</button> : 
+                <p className="watchlist-message">This movie is already on a watch list</p>}
             <section className="movie-plot">
                 <p><em>{plot}</em></p>
                 <p>Starring {actors}</p>
