@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useKey } from "./useKey";
 
 export default function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     const [movie, setMovie] = useState({});
@@ -29,19 +30,7 @@ export default function MovieDetails({ selectedId, onCloseMovie, onAddWatched, w
         onCloseMovie();
     }
 
-    useEffect(() => {
-        function callback(e) {
-            if(e.code === 'Escape') {
-                onCloseMovie();
-              }
-        }
-        document.addEventListener('keydown', callback);
-
-        return function () {
-            document.removeEventListener("keydown", callback);
-          };
-
-      }, [onCloseMovie]);
+    useKey('Escape', onCloseMovie)
     
     useEffect(() => {
         if(!title) return;
