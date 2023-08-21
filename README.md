@@ -1,4 +1,8 @@
 # Movie App
+### Links
+
+- Solution URL: [https://github.com/MitaliShah/discoverMovies](https://github.com/MitaliShah/discoverMovies)
+- Live Site URL: [https://main--idyllic-sherbet-48a55c.netlify.app/](https://main--idyllic-sherbet-48a55c.netlify.app/)
 
 ## Overview
 
@@ -8,7 +12,4 @@ A React-based web application that leverages the OMDb API to retrieve movie info
 
 ![movie-app-screenshot](./public/movie-app.png)
 
-### Links
 
-- Solution URL: [https://github.com/MitaliShah/discoverMovies](https://github.com/MitaliShah/discoverMovies)
-- Live Site URL: [https://main--idyllic-sherbet-48a55c.netlify.app/](https://main--idyllic-sherbet-48a55c.netlify.app/)
